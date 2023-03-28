@@ -2,7 +2,7 @@
 namespace php_blog\engine;
 
 
-class db extends \PDO{
+class Db extends \PDO{
 
     public function __construct()
     {
