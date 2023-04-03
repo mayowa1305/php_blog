@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Posts (
   body longtext NOT NULL,
   createdDate datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (id)
-) DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO Posts (title, body, createdDate) VALUES
 (@sPostTitle, @sPostBody, @sPostDate);
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Admins (
   email varchar(120) NOT NULL,
   password char(60) NOT NULL,
   PRIMARY KEY (id)
-) DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO Admins (email, password) VALUES
 (@sAdminEmail, @sAdminPassword);

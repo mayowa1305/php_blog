@@ -26,12 +26,8 @@ define('ROOT_PATH',__DIR__.'/');
 try{
     require(ROOT_PATH.'engine/loader.php');
     E\loader::getInstance()->init();
-    $aParams = array(
-        'ctrl' => (!empty($_GET['p'] ? $_GET['p'] : 'blog')),
-        'act' => (!empty($_GET['a'] ? $_GET['a'] : 'index'))
-    );
+    $aParams = ['ctrl' => (!empty($_GET['p']) ? $_GET['p'] : 'blog'), 'act' => (!empty($_GET['a']) ? $_GET['a'] : 'index')]; // I use the new PHP 5.4 short array syntax
     E\Router::run($aParams);
-
 } catch (\Exception $oE){
     echo $oE->getMessage();
 }

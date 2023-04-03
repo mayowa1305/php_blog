@@ -9,10 +9,10 @@ class Blog{
         $this->oDb = new \php_blog\engine\Db;
     }
 
-    public function get($oOffset,$oLimit) {
-        $oStmt = $this->oDb->prepare('SELECT * FROM Posts ORDER BY createdDate DESC LIMIT :offset :limit');
-        $oStmt->bindParam(':offset',$oOffset,\PDO::PARAM_INT);
-        $oStmt->bindParam(':limit',$oLimit,\PDO::PARAM_INT);
+    public function get($iOffset,$iLimit) {
+        $oStmt = $this->oDb->prepare('SELECT * FROM Posts ORDER BY createdDate DESC LIMIT :offset, :limit');
+        $oStmt->bindParam(':offset',$iOffset,\PDO::PARAM_INT);
+        $oStmt->bindParam(':limit',$iLimit,\PDO::PARAM_INT);
         $oStmt->execute();
 
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);
@@ -20,7 +20,7 @@ class Blog{
 
     public function getAll(){
         $oStmt = $this->oDb->query('SELECT * FROM Posts ORDER BY createdDate DESC');
-        
+
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }
 

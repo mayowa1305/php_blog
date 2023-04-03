@@ -2,9 +2,10 @@
 namespace php_blog\engine;
 
 class util{
-    private function _get($sFilename, $sType){
+    private function _get($sFilename, $sType, $aArray = array()){
         $sFullpath = ROOT_PATH.$sType.'/'.$sFilename.'.php';
         if (is_file($sFullpath)){
+            extract($aArray);
             require($sFullpath);
         }else{
             exit('The "'.$sFullpath.'" file doesnt exist.');
@@ -12,8 +13,8 @@ class util{
 
     }
 
-    public function getViews($sViewname){
-        $this->_get($sViewname,'view');
+    public function getViews($sViewname,$aArray = array()){
+        $this->_get($sViewname,'view',$aArray);
     }
 
     public function getModels($sModelname){
