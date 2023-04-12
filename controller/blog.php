@@ -26,15 +26,25 @@ class Blog{
         $this->oUtil->oPosts = $posts;
         $this->oUtil->getViews('index',['posts' => $posts]);
     }
-
+    
     public function post() {
         $post = $this->oModel->getbyId($this->_iId);
         $this->oUtil->oPost = $post;
         $this->oUtil->getViews('post',['post' => $post]);
     }
 
-    public function nofound() {
+    public function notfound() {
         $this->oUtil->getViews('not_found');
+
+    }
+
+    public function about() {
+        $this->oUtil->getViews('aboutUs');
+
+    }
+
+    public function contact() {
+        $this->oUtil->getViews('contact');
     }
 //functions for the admin/backend
 
@@ -55,22 +65,20 @@ class Blog{
         if (!$this->isLogged()) exit();
 
         if (!empty($_POST['add_submit'])){
-            if (isset($_POST['title'],$_POST['post']) && mb_strlen($_POST['title'])<=50){
-                $aArray = array('title' => $_POST['title'],'post'=>$_POST['post'],'created_date'=>date('Y-m-d H:i:s'));
+            if (isset($_POST['title'],$_POST['body']) && mb_strlen($_POST['title'])<=50){
+                $aArray = array('title' => $_POST['title'],'body'=>$_POST['body'],'created_date'=>date('Y-m-d H:i:s'));
 
                 if ($this->oModel->add($aArray)){
-                    $succMssg = "Hurray post has being added.";
-                    $this->oUtil->succMssg = $succMssg;
+                    $this->oUtil->succMssg = 'Hurray post has being added.';
                 } else{
-                   $errMssg = "An error has occured please try again later";
-                   $this->oUtil->errMssg = $errMssg;
+                    $this->oUtil->errMssg = 'An error has occured please try again later';
                 }
             } else{
                 $this->oUtil->errMssg = 'The post title should be less than 50 characters';
             }
 
         }
-        $this->oUtil->getViews('add_post',['errMssg' => $errMssg, 'succMssg' => $succMssg]);
+        $this->oUtil->getViews('add_post');
     }
     
     public function edit(){
@@ -94,12 +102,12 @@ class Blog{
 
         $post = $this->oModel->getbyId($this->_iId);
         $this->oUtil->oPost = $post;
-        $this->oUtil->getViews('edit_post');
+        $this->oUtil->getViews('edit_post',['post' => $post]);
 
     }
 
     public function delete() {
-        if (!$this->isLogged()) exit();
+        if (!$this->isLogged()) exit;
 
         if (!empty($_POST['delete']) && $this->oModel->delete($this->_iId)){
             header('location: ' .ROOT_URL);

@@ -31,18 +31,18 @@ class Blog{
     }
 
     public function getbyId($iId){
-        $oStmt = $this->oDb->prepare('SELECT FROM Posts WHERE id = :postid LIMIT 1');
-        $oStmt->bindParam('postid',$iId,\PDO::PARAM_INT);
+        $oStmt = $this->oDb->prepare('SELECT * FROM Posts WHERE id = :postid LIMIT 1');
+        $oStmt->bindParam(':postid',$iId,\PDO::PARAM_INT);
         $oStmt->execute();
 
-        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+        return $oStmt->fetch(\PDO::FETCH_OBJ);
     }
 
     public function update(array $aData){
         $oStmt = $this->oDb->prepare('UPDATE Posts SET title = :title, body = :body WHERE id = :postid LIMIT 1');
         $oStmt->bindValue(':title',$aData['title']);
         $oStmt->bindValue(':body',$aData['body']);
-        $oStmt->bindValue(':postid',$aData['postid'],\PDO::PARAM_INT);
+        $oStmt->bindValue(':postid',$aData['post_id'],\PDO::PARAM_INT);
 
         return $oStmt->execute();
     }

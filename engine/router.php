@@ -16,12 +16,12 @@ class Router{
           if ((new \ReflectionClass($oCtrl))->hasMethod($aParams['act']) && (new \ReflectionMethod($oCtrl, $aParams['act']))->isPublic()){
             call_user_func(array($oCtrl,$aParams['act']));
         } else{
-            call_user_func(array($oCtrl,'not found'));
+            call_user_func(array($oCtrl,'notfound'));
         }
 
 
         }else{
-        call_user_func(array($sDefCtrl,'not found'));
+        call_user_func(array($sDefCtrl,'notfound'));
         }
     
     }

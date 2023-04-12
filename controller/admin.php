@@ -2,27 +2,23 @@
 namespace php_blog\controller;
 
 class admin extends Blog{
-    public function Login(){
-        if ($this->isLogged()){
+    public function login(){
+        if ($this->isLogged())
             header('location: '.ROOT_URL.'?p=blog&a=all');
-        }
-
-        if (isset($_POST['email'],$post['password'])){
+        if (isset($_POST['email'],$_POST['password'])){
             $this->oUtil->getModels('Admin');
             $this->oModel = new \php_blog\model\Admin;
 
-            $sHashpassword = $this->oModel->Login($_POST['email']);
+            $sHashpassword = $this->oModel->login($_POST['email']);
             if (password_verify($_POST['password'],$sHashpassword)){
                 $_SESSION['is_logged'] = 1;
                 header('location: '.ROOT_URL.'?p=blog&a=all');
-                exit();
+                exit;
             } else{
                 $this->oUtil->errMsg = 'incorrect login';
             }
-
-            $this->oUtil->getViews('login');
         }
-
+        $this->oUtil->getViews('login');
     
     }
     
