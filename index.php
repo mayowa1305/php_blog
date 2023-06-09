@@ -1,7 +1,7 @@
 <?php
 
 
-namespace php_blog;
+namespace php_blog\engine;
 
 use php_blog\engine as E;
 
