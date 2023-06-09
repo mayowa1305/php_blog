@@ -53,9 +53,9 @@
                               </div>
                               <div>
                                    <div class="form-group">
-                                        <form action="#" method="get">
+                                        <form action="" method="post">
                                              <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email" required>
-                                             <input type="submit" class="form-control" name="submit" id="form-submit" value="Send me">
+                                             <input type="submit" class="form-control" name="submit_email" id="form-submit" value="Send me">
                                         </form>
                                         <span><sup>*</sup> Please note - we do not spam your email.</span>
                                    </div>
@@ -65,14 +65,12 @@
                     
                </div>
           </div>
-          <p class="italic"><strong><a href="<?=ROOT_URL?>" title="Homeage">Simple Blog</a></strong> created for a PHP Technical Test &nbsp; | &nbsp;
-                <?php if (!empty($_SESSION['is_logged'])): ?>
+          <?php if (!empty($_SESSION['is_logged'])): ?>
                     You are connected as Admin - <a href="<?=ROOT_URL?>?p=admin&amp;a=logout">Logout</a> &nbsp; | &nbsp;
                     <a href="<?=ROOT_URL?>?p=blog&amp;a=all">View All Blog Posts</a>
-                <?php else: ?>
-                    <a href="<?=ROOT_URL?>?p=admin&amp;a=login">Backend Login</a>
+                
                 <?php endif ?>
-                </p>
+          
      </footer>
 
      <!-- SCRIPTS -->

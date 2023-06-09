@@ -1,7 +1,8 @@
-<?php if (!empty($errMssag)): ?>
-    <p><?=$errMssag->errMssg?></p>
+
+<?php if (!empty($this->errMssg)): ?>
+    <p><?= $this->errMssg ?></p>
 <?php endif ?>
 
-<?php if (!empty($succMssag)): ?>
-    <p><?=$succMssag->succMssg?></p>
+<?php if (!empty($this->succMssg)): ?>
+    <p><?= $this->succMssg ?></p>
 <?php endif ?>

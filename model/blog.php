@@ -25,7 +25,7 @@ class Blog{
     }
 
     public function add(array $aData){
-        $oStmt = $this->oDb->prepare('INSERT INTO Posts (title,body,createdDate) VALUES(:title,:body,:created_date)');
+        $oStmt = $this->oDb->prepare('INSERT INTO Posts (title,body,image,author,createdDate) VALUES(:title,:body,:image,:author,:created_date)');
 
         return $oStmt->execute($aData);
     }
@@ -47,11 +47,37 @@ class Blog{
         return $oStmt->execute();
     }
 
+    public function comment(array $aData){
+        $oStmt = $this->oDb->prepare('INSERT INTO comments (post_id, name, comment) VALUES(:post_id,:name,:comment)');
+
+        
+        return $oStmt->execute($aData);
+    }
+
+
+ 
+    public function commentbyId($iId){
+        $oStmt = $this->oDb->prepare('SELECT * FROM comments WHERE post_id = :post_id LIMIT 5');
+        $oStmt->bindParam(':post_id',$iId,\PDO::PARAM_INT);
+        $oStmt->execute();
+
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
     public function delete($iId){
         $oStmt = $this->oDb->prepare('DELETE FROM posts WHERE id = :postid LIMIT 1');
         $oStmt->bindParam(':postid',$iId,\PDO::PARAM_INT);
 
         return $oStmt->execute();
+    }
+
+
+    //function that registers users email for newsletter 
+
+    public function registerNewsletter(array $aData){
+        $oStmt = $this->oDb->prepare('INSERT INTO newsletter (email) VALUE(:email)');
+
+        return $oStmt->execute($aData);
     }
 
 }

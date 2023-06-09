@@ -8,11 +8,10 @@
                <h1><?=$post->title?></h1>
                <p class="lead">
                     <i class="fa fa-calendar"></i> <?=$post->createdDate?>
-                    <i class="fa fa-eye"></i> 114
+                    <i class="fa fa-user"></i> <?=$post->author?>
                </p>
 
-               <img src="<?=$post->image?>" class="img-responsive" alt="">
-
+               
                <br>
 
                
@@ -39,14 +38,22 @@
 
                     <div class="col-md-8 col-xs-12">
                          <h4>Comments</h4>
-
+                         <?php if (empty($comment)): ?>
                          <p>No comments found.</p>
-
-                         <br>
                          
+                         <br>
+                         <?php else: ?>
+                         <?php foreach ($comment as $oComment): ?>
+                         <div>
+                              <P><b><?=$oComment->name?></b></P>
+                              <p><?=$oComment->comment?></p>
+                              <hr class="clear" />
+                         </div>
+                         <?php endforeach?>
+                         <?php endif ?>
                          <h4>Leave a Comment</h4>
 
-                         <form action="#" class="form">
+                         <form action="" class="form" method="post">
 
                               <div class="row">
                                    <div class="col-sm-6 col-xs-6">
@@ -57,13 +64,6 @@
                                         </div>
                                    </div>
 
-                                   <div class="col-sm-6 col-xs-6">
-                                        <div class="form-group">
-                                             <label class="control-label">Email</label>
-
-                                             <input type="email" name="email" class="form-control">
-                                        </div>
-                                   </div>
                               </div>
 
                               <div class="form-group">
@@ -72,7 +72,7 @@
                                    <textarea name="comment" class="form-control" rows="10" autocomplete="off"></textarea>
                               </div>
 
-                              <button type="submit" class="section-btn btn btn-primary">Submit</button>
+                              <p><input type="submit" name = "submit_comment" value = "Submit"class="section-btn btn btn-primary"/></p>
                          </form>
                     </div>
                </div>

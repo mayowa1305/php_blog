@@ -28,9 +28,25 @@ class Blog{
     }
     
     public function post() {
+        if (!empty($_POST['submit_comment'])){
+            if (isset($_POST['name'],$_POST['comment'])){
+                $aArray = array('post_id' => $this->_iId, 'name' => $_POST['name'], 'comment' =>$_POST['comment']);
+                if ($this->oModel->comment($aArray)){
+                    $this->oUtil->succMssg = 'Hurray post has being added.';
+                } else{
+                    $this->oUtil->errMssg = 'An error has occured please try again later';
+                }
+            } else{
+                $this->oUtil->errMssg = 'The post title should be less than 50 characters';
+            }    
+
+         
+        }
+        $comment = $this->oModel->commentbyId($this->_iId);
+        $this->oUtil->oComment = $comment;
         $post = $this->oModel->getbyId($this->_iId);
         $this->oUtil->oPost = $post;
-        $this->oUtil->getViews('post',['post' => $post]);
+        $this->oUtil->getViews('post',['post' => $post,'comment' => $comment]);
     }
 
     public function notfound() {
@@ -66,7 +82,7 @@ class Blog{
 
         if (!empty($_POST['add_submit'])){
             if (isset($_POST['title'],$_POST['body']) && mb_strlen($_POST['title'])<=50){
-                $aArray = array('title' => $_POST['title'],'body'=>$_POST['body'],'created_date'=>date('Y-m-d H:i:s'));
+                $aArray = array('title' => $_POST['title'],'body'=>$_POST['body'],'image' => $_POST['image'],'author' => $_POST['author'],'created_date'=>date('Y-m-d H:i:s'));
 
                 if ($this->oModel->add($aArray)){
                     $this->oUtil->succMssg = 'Hurray post has being added.';
@@ -80,6 +96,8 @@ class Blog{
         }
         $this->oUtil->getViews('add_post');
     }
+
+    
     
     public function edit(){
         if (!$this->isLogged()) exit();
@@ -89,7 +107,7 @@ class Blog{
                 $aArray = array('post_id' => $this->_iId,'title' => $_POST['title'],'body' => $_POST['body']);
 
                 if ($this->oModel->update($aArray)){
-                    $succMssg = "Hurray post has being added.";
+                    $succMssg = "Hurray post has being updated.";
                     $this->oUtil->succMssg = $succMssg;
                 } else{
                    $errMssg = "An error has occured please try again later";
@@ -105,7 +123,27 @@ class Blog{
         $this->oUtil->getViews('edit_post',['post' => $post]);
 
     }
+/*
+    public function comment() {
+        if (!empty($_POST['submit_comment'])){
+            if (isset($_POST['name'],$_POST['comment'])){
+                $aArray = array('post_id' => $this->_iId, 'name' => $_POST['name'], 'comment' =>$_POST['comment']);
+                if ($this->oModel->comment($aArray)){
+                    $this->oUtil->succMssg = 'Hurray post has being added.';
+                } else{
+                    $this->oUtil->errMssg = 'An error has occured please try again later';
+                }
+            } else{
+                $this->oUtil->errMssg = 'The post title should be less than 50 characters';
+            }    
 
+         
+        }
+    
+        
+        $this->oUtil->getViews('post');
+    }
+*/
     public function delete() {
         if (!$this->isLogged()) exit;
 
@@ -114,6 +152,26 @@ class Blog{
         } else{
             exit('oops! post cannot be deleted.');
         }
+    }
+
+    public function addNewsletter() {
+        if (!empty($_POST['submit_email'])){
+            if (isset($_POST['email'])){
+                $aArray = array('email' => $_POST['email']);
+
+                if ($this->oModel->registerNewsletter($aArray)){
+                    $this->oUtil->succMssg = 'you have registered for newsletter.';
+                } else{
+                    $this->oUtil->errMssg = 'an error has occured please try again.';
+                }
+            } else{
+                $this->oUtil->errMssg = 'an error has occured please try again';
+            }
+
+            
+        }
+
+        $this->oUtil->getViews('index');
     }
 }
 ?>

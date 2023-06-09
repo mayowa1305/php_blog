@@ -19,17 +19,17 @@
                               <div class="courses-thumb courses-thumb-secondary">
                                    <div class="courses-top">
                                         <div class="courses-image">
-                                             <img src="<?=ROOT_URL?>static/images/product-1-720x480.jpg" class="img-responsive" alt="">
+                                             <img src="<?= htmlspecialchars($oPost->image) ?>" class="img-responsive" alt="">
                                         </div>
                                         <div class="courses-date">
-                                             <span title="Author"><i class="fa fa-user"></i> John Doe</span>
-                                             <span title="Date"><i class="fa fa-calendar"></i> 12/06/2020 10:30</span>
-                                             <span title="Views"><i class="fa fa-eye"></i> 114</span>
+                                             <span title="Author"><i class="fa fa-user"></i> <?=$oPost->author?></span>
+                                             <span title="Date"><i class="fa fa-calendar"></i><?=$oPost->createdDate?></span>
+                                             
                                         </div>
                                    </div>
 
                                    <div class="courses-detail">
-                                        <h1><a href="<?=ROOT_URL?>?p=blog&amp;a=post&amp;id=<?=$oPost->id?>"><?=htmlspecialchars($oPost->title)?></a></h1>
+                                        <h3><a href="<?=ROOT_URL?>?p=blog&amp;a=post&amp;id=<?=$oPost->id?>"><?=htmlspecialchars($oPost->title)?></a></h3>
                                         <p><?=nl2br(htmlspecialchars(mb_strimwidth($oPost->body, 0, 100, '...')))?></p>
                                    </div>
 
@@ -39,12 +39,14 @@
                                    </div>
                               </div>
                             
+
                          </div>
                          <?php endforeach ?>
                               <?php endif?>
                               </div>
                          </div>
                     </div>
+
                </div>
           </section>
      </main>
@@ -77,7 +79,7 @@
 
                     <div class="col-md-6 col-sm-12">
                          <div class="contact-image">
-                              <img src="images/contact-1-600x400.jpg" class="img-responsive" alt="Smiling Two Girls">
+                              <img src="<?=ROOT_URL?>static/images/contact-1-600x400.jpg" class="img-responsive" alt="Smiling Two Girls">
                          </div>
                     </div>
 
@@ -87,3 +89,5 @@
 
      <!-- FOOTER -->  
   <?php require 'inc/footer.php' ?>   
+
+
