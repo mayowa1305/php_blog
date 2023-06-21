@@ -21,7 +21,8 @@ class Router{
 
 
         }else{
-        call_user_func(array($sDefCtrl,'notfound'));
+            $defaultCtrl = new $sDefCtrl;
+            $defaultCtrl->notfound();
         }
     
     }
