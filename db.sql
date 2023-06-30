@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS Posts (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   title varchar(50) DEFAULT NULL,
   body longtext NOT NULL,
+  image varchar(120) NOT NULL,
+  author varchar(50) NOT NULL,
   createdDate datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (id)
 ) DEFAULT CHARSET=utf8mb4;

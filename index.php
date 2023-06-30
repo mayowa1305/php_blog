@@ -5,6 +5,9 @@ namespace php_blog\engine;
 
 use php_blog\engine as E;
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 if (version_compare(PHP_VERSION,'5.5.0','<')){
     exit("your php version is: ". PHP_VERSION.". This script requires php version 5.5.0 and above.");
 }
